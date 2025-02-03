@@ -6,3 +6,7 @@ export interface IOptLocation extends DefaultOptionType {
         url: string
     }
 }
+
+export interface IOptUser extends DefaultOptionType {
+
+}

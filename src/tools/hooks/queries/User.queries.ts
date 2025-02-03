@@ -33,14 +33,11 @@ export const useUser = (idOrLogin?: number | string) => {
     })
 }
 
-export const useUsers = () => {
+export const useGetAllUsers = () => {
     return useQuery({
         queryKey: ['users'],
         queryFn: async (meta) => {
             return await UserService.getAllUser(meta)
-        },
-        select: (data) => {
-            return data.data
         }
     })
 }

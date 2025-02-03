@@ -10,4 +10,8 @@ export class RoomsService {
         const {data} = await axiosClient.get(`${this.path}/myRoomsIsAuthor/${userId}`, {signal});
         return data
     }
+
+    static async createRoom(room: IRoom): Promise<IRoom> {
+
+    }
 }

@@ -13,8 +13,9 @@ export class UserService {
         return await axiosClient.get(`${this.path}/${idOrLogin}`, {signal});
     }
 
-    static async getAllUser({signal}: { signal?: AbortSignal }): Promise<AxiosPromise<AllUser>> {
-        return await axiosClient.get(`${this.path}/all`, {signal})
+    static async getAllUser({signal}: { signal?: AbortSignal }): Promise<AllUser> {
+        const {data} = await axiosClient.get(`${this.path}/all`, {signal})
+        return data
     }
 
     static async getSessionsUser({signal}: { signal?: AbortSignal }) {
