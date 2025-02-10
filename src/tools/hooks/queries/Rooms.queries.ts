@@ -1,6 +1,6 @@
 import {skipToken, useMutation, useQuery} from "@tanstack/react-query";
 import {RoomsService} from "../../api/services/Rooms.service.ts";
-import {RoomDto} from "../../Models/room.dto.ts";
+import {CreateRoomDto} from "../../Models/room.dto.ts";
 
 export const useGetMyRoomsAuthor = (userId: number | undefined) => {
     return useQuery({
@@ -13,7 +13,7 @@ export const useGetMyRoomsAuthor = (userId: number | undefined) => {
 
 export const useCreateRoom = () => {
     return useMutation({
-        mutationFn: async (room: RoomDto) => {
+        mutationFn: async (room: CreateRoomDto) => {
             await RoomsService.createRoom(room)
         }
     })

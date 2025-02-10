@@ -9,7 +9,7 @@ export interface LocationDTO extends BaseEntity {
 
 export interface CreateLocationDto {
     name: string
-    url: string
-    address: string
+    url?: string
+    address?: string
 }
 

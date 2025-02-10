@@ -11,19 +11,20 @@ export interface RoomDto extends BaseEntity {
 export interface CreateRoomDto {
     title: string
     description: string
-    existingLocations?: LocationMoreInfoDto
-    newLocations?: CreateRoomLocationDto
+    existingLocations?: LocationMoreInfoDto[]
+    newLocations?: CreateRoomLocationDto[]
     authorId: number
     membersId: number[]
+    exactDate?: string
 }
 
 export interface LocationMoreInfoDto {
-    existingLocationsId: number
-    exactDate: Date
-    description: string
+    existingLocationsId: string
+    exactDate?: string
+    description?: string
 }
 
 export interface CreateRoomLocationDto extends CreateLocationDto {
-    exactDate: Date
-    description: string
+    exactDate?: string
+    description?: string
 }

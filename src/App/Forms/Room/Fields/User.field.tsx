@@ -1,13 +1,14 @@
 import {Form, Select} from "antd";
 import {IOptUser} from "../../../../tools/interfaces/option.interface.ts";
 import {useGetAllUsers} from "../../../../tools/hooks/queries/User.queries.ts";
+import {NF_CreateRoom} from "../../../../tools/storage/FieldName.storage.ts";
 
 export const UserField = () => {
     const {data: usersAndCount} = useGetAllUsers()
 
     return <Form.Item
         label="Кто"
-        name="members"
+        name={NF_CreateRoom.members}
     >
         <Select<string, IOptUser>
             mode={"multiple"}

@@ -1,5 +1,5 @@
 import {axiosClient} from "../axios.config.ts";
-import {RoomDto} from "../../Models/room.dto.ts";
+import {CreateRoomDto, RoomDto} from "../../Models/room.dto.ts";
 
 export class RoomsService {
     private static path = '/rooms';
@@ -11,7 +11,7 @@ export class RoomsService {
         return data
     }
 
-    static async createRoom(room: RoomDto): Promise<RoomDto> {
+    static async createRoom(room: CreateRoomDto): Promise<RoomDto> {
         const {data} = await axiosClient.post(`${this.path}`, room);
         return data
     }
