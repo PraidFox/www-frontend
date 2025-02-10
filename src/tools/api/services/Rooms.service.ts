@@ -1,17 +1,18 @@
 import {axiosClient} from "../axios.config.ts";
-import {IRoom} from "../../interfaces/room.interface.ts";
+import {RoomDto} from "../../Models/room.dto.ts";
 
 export class RoomsService {
     private static path = '/rooms';
 
     static async getMyRoomsIsAuthor(userId: number, {signal}: {
         signal?: AbortSignal
-    }): Promise<IRoom[]> {
+    }): Promise<RoomDto[]> {
         const {data} = await axiosClient.get(`${this.path}/myRoomsIsAuthor/${userId}`, {signal});
         return data
     }
 
-    static async createRoom(room: IRoom): Promise<IRoom> {
-
+    static async createRoom(room: RoomDto): Promise<RoomDto> {
+        const {data} = await axiosClient.post(`${this.path}`, room);
+        return data
     }
 }

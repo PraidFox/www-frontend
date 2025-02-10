@@ -7,6 +7,4 @@ export interface IOptLocation extends DefaultOptionType {
     }
 }
 
-export interface IOptUser extends DefaultOptionType {
-
-}
+export type IOptUser = DefaultOptionType

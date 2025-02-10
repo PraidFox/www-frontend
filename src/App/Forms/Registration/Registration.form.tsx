@@ -1,9 +1,9 @@
-import type {FormProps} from 'antd';
-import {Button, Form} from 'antd';
+import {Button, Form, FormProps} from 'antd';
 import {IFieldRegistration} from "../../../tools/interfaces/fieldsForForms.interface.ts";
 import {FieldsRegistration} from "./Fields.registration.tsx";
 import {useRegistration} from "../../../tools/hooks/queries/Auth.queries.ts";
-import {IRegistration} from "../../../tools/interfaces/auth.interface.ts";
+import {RegisterDto} from "../../../tools/Models/auth.dto.ts";
+import {NF_Registration} from "../../../tools/storage/FieldName.storage.ts";
 
 
 export const RegistrationForm = () => {
@@ -11,11 +11,11 @@ export const RegistrationForm = () => {
 
     const onFinish: FormProps<IFieldRegistration>['onFinish'] = async (values) => {
 
-        const data: IRegistration = {
-            email: values.email,
-            login: values.login,
-            password: values.password,
-            passwordRepeat: values.passwordRepeat
+        const data: RegisterDto = {
+            email: values[NF_Registration.EMAIL],
+            login: values[NF_Registration.login],
+            password: values[NF_Registration.password],
+            passwordRepeat: values[NF_Registration.passwordRepeat]
         }
 
         //TODO определиться как показывать/возвращать ошибки которые отдаёт бекенд. К примеру в этом случае, что пароль должен быть больше 6 символов
@@ -37,6 +37,7 @@ export const RegistrationForm = () => {
                 autoComplete="off"
                 scrollToFirstError
             >
+
                 <FieldsRegistration form={form}/>
 
                 <Form.Item label={null}>

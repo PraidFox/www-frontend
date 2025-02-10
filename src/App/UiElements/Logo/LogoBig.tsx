@@ -1,3 +1,3 @@
 export const LogoBig = () => {
-    return <h1>WWW - Кто? Где? Когда?</h1>
+    return <h1>WWW - Кто? Куда? Когда?</h1>
 }

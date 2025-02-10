@@ -1,11 +1,12 @@
 import {axiosClient} from "../axios.config.ts";
 import {AxiosPromise} from "axios";
-import {IAuth, IRegistration, IResetPassword, ITokenResponse} from "../../interfaces/auth.interface.ts";
+
+import {AuthDto, ITokenResponse, PasswordResetDto, RegisterDto} from "../../Models/auth.dto.ts";
 
 export class AuthService {
     private static path = '/auth';
 
-    static async registrationUser(registrationData: IRegistration): Promise<AxiosPromise<{ id: number }>> {
+    static async registrationUser(registrationData: RegisterDto): Promise<AxiosPromise<{ id: number }>> {
         const data = {
             ...registrationData,
             urlVerifyEmail: import.meta.env.VITE_APP_BASE_URL + 'verifyEmail/'
@@ -14,7 +15,7 @@ export class AuthService {
 
     }
 
-    static async loginUser(auth: IAuth): Promise<ITokenResponse> {
+    static async loginUser(auth: AuthDto): Promise<ITokenResponse> {
         const {data} = await axiosClient.post(`${this.path}/login`, auth)
         console.log("data", data)
         return data
@@ -35,8 +36,8 @@ export class AuthService {
     }
 
 
-    static async resetPassword(data: IResetPassword) {
-        return await axiosClient.put(`${this.path}/resetPassword?token=${data.token}`, {
+    static async resetPassword(data: PasswordResetDto, token: string) {
+        return await axiosClient.put(`${this.path}/resetPassword?token=${token}`, {
             password: data.password,
             passwordRepeat: data.passwordRepeat
         })

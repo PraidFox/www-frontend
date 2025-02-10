@@ -1,13 +1,14 @@
-export interface IAuth {
+export interface AuthDto {
     emailOrLogin: string,
     password: string,
 }
 
-export interface IRegistration {
-    email: string,
+export interface RegisterDto {
     login: string,
+    email: string,
     password: string,
     passwordRepeat: string,
+    //urlVerifyEmail передаю в самом запросе
 }
 
 export interface ITokenResponse {
@@ -15,8 +16,7 @@ export interface ITokenResponse {
     expire: Date
 }
 
-export interface IResetPassword {
+export interface PasswordResetDto {
     password: string,
     passwordRepeat: string,
-    token: string
 }

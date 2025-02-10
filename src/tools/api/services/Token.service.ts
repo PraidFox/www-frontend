@@ -1,6 +1,7 @@
 import {axiosClient} from "../axios.config.ts";
 import {AxiosPromise} from "axios";
-import {ITokenResponse} from "../../interfaces/auth.interface.ts";
+import {ITokenResponse} from "../../Models/auth.dto.ts";
+
 
 export class TokenService {
     private static path = '/auth';

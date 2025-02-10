@@ -1,22 +1,23 @@
 import type {FormProps} from 'antd';
 import {Button, Form} from 'antd';
 import {useAuth} from "../../../tools/hooks/queries/Auth.queries.ts";
-import {IAuth} from "../../../tools/interfaces/auth.interface.ts";
+
 import {IFieldAuth} from "../../../tools/interfaces/fieldsForForms.interface.ts";
 import {FieldsAuthorization} from "./Fields.authorization.tsx";
+import {AuthDto} from "../../../tools/Models/auth.dto.ts";
 
 
 export const AuthorizationForm = () => {
     const auth = useAuth()
 
     const onFinish: FormProps<IFieldAuth>['onFinish'] = async (values) => {
-        const data: IAuth = {
+        const data: AuthDto = {
             emailOrLogin: values.emailOrLogin,
             password: values.password,
         }
         await auth.mutateAsync({auth: data, rememberMe: values.remember})
     };
-    
+
     return (
         <>
             {auth.isError && <div>Какая-то ошибка</div>}

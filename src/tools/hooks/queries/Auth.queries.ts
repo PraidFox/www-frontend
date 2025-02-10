@@ -1,15 +1,15 @@
 import {useMutation} from "@tanstack/react-query";
-import {IAuth, IRegistration, IResetPassword} from "../../interfaces/auth.interface.ts";
 import {AuthService} from "../../api/services/Auth.service.ts";
 import {queryClient} from "../../api/query.config.ts";
 import {StorageKeys} from "../../storage/localStorage.storage.ts";
 import {clearTokenInfo} from "../../utils/localStorage.utils.ts";
 import {AxiosError} from "axios";
+import {AuthDto, PasswordResetDto, RegisterDto} from "../../Models/auth.dto.ts";
 
 export const useAuth = () => {
     return useMutation({
         mutationKey: ["login"],
-        mutationFn: async ({auth, rememberMe}: { auth: IAuth, rememberMe: boolean }) => {
+        mutationFn: async ({auth, rememberMe}: { auth: AuthDto, rememberMe: boolean }) => {
             localStorage.setItem(StorageKeys.REMEMBER_ME, rememberMe.toString())
             return await AuthService.loginUser(auth)
         },
@@ -44,7 +44,7 @@ export const useLogout = () => {
 export const useRegistration = () => {
     return useMutation({
         mutationKey: ["registration"],
-        mutationFn: async (registration: IRegistration) => {
+        mutationFn: async (registration: RegisterDto) => {
             const response = await AuthService.registrationUser(registration);
             return response.data;
         },
@@ -71,9 +71,9 @@ export const useSendMailResetPassword = () => {
 export const useResetPassword = () => {
     return useMutation({
         mutationKey: ["resetPassword"],
-        mutationFn: async (data: IResetPassword) => {
+        mutationFn: async ({data, token}: { data: PasswordResetDto, token: string }) => {
             try {
-                return await AuthService.resetPassword(data)
+                return await AuthService.resetPassword(data, token)
             } catch (error) {
                 const err = error as AxiosError<{ message: string[], error: string, statusCode: number }>
                 if (err.response) {

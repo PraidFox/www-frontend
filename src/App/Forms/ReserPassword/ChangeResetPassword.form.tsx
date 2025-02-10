@@ -17,10 +17,9 @@ export const ChangeResetPasswordForm = ({token}: { token: string }) => {
         const data = {
             password: values.password,
             passwordRepeat: values.passwordRepeat,
-            token: token
         }
 
-        await resetPassword.mutateAsync(data)
+        await resetPassword.mutateAsync({data, token: token})
     };
 
 

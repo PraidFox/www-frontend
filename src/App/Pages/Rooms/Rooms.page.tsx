@@ -20,7 +20,7 @@ export const RoomsPage = () => {
 
         {/*<Outlet/>*/}
 
-        {rooms.length > 0 ? rooms.map(x => <div key={x.id}>{x.name}</div>) : <div>Нет комнат</div>}
+        {rooms.length > 0 ? rooms.map(x => <div key={x.id}>{x.title}</div>) : <div>Нет комнат</div>}
 
     </div>
 }
