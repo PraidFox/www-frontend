@@ -1,6 +1,7 @@
 import {DatePicker, Form, Input} from "antd";
 import {optionsDateTypeType} from "../../../../tools/constant/options.constant.ts";
 import {NF_CreateRoom} from "../../../../tools/storage/FieldName.storage.ts";
+import {dateFormat} from "../../../../tools/constant/constants.ts";
 
 export const NewLocation = ({selected, dateType}: {
     selected: { index: number, location: string },
@@ -17,7 +18,7 @@ export const NewLocation = ({selected, dateType}: {
         </Form.Item>
         {dateType === 'date_for_every_location' &&
             <Form.Item name={NF_CreateRoom.new_location_data + selected.index.toString()} label="Когда">
-                <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"/>
+                <DatePicker showTime format={dateFormat}/>
             </Form.Item>
         }
         <Form.Item label="Ссылка" name={NF_CreateRoom.new_location_url + selected.index.toString()}>

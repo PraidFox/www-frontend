@@ -1,5 +1,5 @@
-import {CreateLocationDto} from "./location.dto.ts";
 import {BaseEntity} from "./base.dto.ts";
+import {CreateLocationDto} from "./location.dto.ts";
 
 export interface RoomDto extends BaseEntity {
     id: number,
@@ -10,21 +10,26 @@ export interface RoomDto extends BaseEntity {
 
 export interface CreateRoomDto {
     title: string
-    description: string
-    existingLocations?: LocationMoreInfoDto[]
-    newLocations?: CreateRoomLocationDto[]
+    description?: string
+    existingLocationsAndDetails?: LocationAndDetailsDto[]
+    newLocationsAndDetails?: NewLocationAndDetailsDto[]
     authorId: number
     membersId: number[]
     exactDate?: string
 }
 
-export interface LocationMoreInfoDto {
-    existingLocationsId: string
-    exactDate?: string
+interface DetailsForWhere {
+    exactDate?: string//Date
     description?: string
 }
 
-export interface CreateRoomLocationDto extends CreateLocationDto {
+export interface LocationAndDetailsDto extends DetailsForWhere {
+    existingLocationsId: number
+
+}
+
+export interface NewLocationAndDetailsDto extends DetailsForWhere {
+    newLocation: CreateLocationDto
     exactDate?: string
     description?: string
 }

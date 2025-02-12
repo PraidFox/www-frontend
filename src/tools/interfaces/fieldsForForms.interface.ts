@@ -34,19 +34,19 @@ export interface IFieldsForForms {
     [NF_CreateRoom.nameRoom]: string;
     [NF_CreateRoom.members]: number[];
     [NF_CreateRoom.dateType]: optionsDateTypeType;
-    [NF_CreateRoom.dateAllLocation]: Dayjs;
+    [NF_CreateRoom.dateAllLocation]: Dayjs | undefined
 
-    [key: `${NF_CreateRoom.location_data}${number}`]: Dayjs
+    [key: `${NF_CreateRoom.location_data}${number}`]: Dayjs | undefined
 
-    [key: `${NF_CreateRoom.location_info}${number}`]: string
+    [key: `${NF_CreateRoom.location_info}${number}`]: string | undefined
 
     [key: `${NF_CreateRoom.new_location_name}${number}`]: string
 
-    [key: `${NF_CreateRoom.new_location_address}${number}`]: string
+    [key: `${NF_CreateRoom.new_location_address}${number}`]: string | undefined
 
-    [key: `${NF_CreateRoom.new_location_data}${number}`]: Dayjs
+    [key: `${NF_CreateRoom.new_location_data}${number}`]: Dayjs | undefined
 
-    [key: `${NF_CreateRoom.new_location_url}${number}`]: string
+    [key: `${NF_CreateRoom.new_location_url}${number}`]: string | undefined
 
-    [key: `${NF_CreateRoom.new_location_info}${number}`]: string
+    [key: `${NF_CreateRoom.new_location_info}${number}`]: string | undefined
 }

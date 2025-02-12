@@ -12,6 +12,7 @@ import {IFieldsForForms} from "../../../tools/interfaces/fieldsForForms.interfac
 import {useCreateRoom} from "../../../tools/hooks/queries/Rooms.queries.ts";
 import {useGetMe} from "../../../tools/hooks/queries/User.queries.ts";
 import {convertDataToPost} from "./CreateRoom.helper.ts";
+import {dateFormat} from "../../../tools/constant/constants.ts";
 
 export const CreateRoomFrom = () => {
     const [selectedLocations, setSelectedLocations] = useState<{ index: number, location: IOptLocation }[]>([])
@@ -45,7 +46,7 @@ export const CreateRoomFrom = () => {
         <DateTypeField/>
         {typeDateValue === 'date_all_location' &&
             <Form.Item name={NF_CreateRoom.dateAllLocation} label="Когда">
-                <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"/>
+                <DatePicker showTime format={dateFormat}/>
             </Form.Item>
         }
         <MappingLocation
