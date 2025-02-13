@@ -11,6 +11,13 @@ export class RoomsService {
         return data
     }
 
+    static async getRoom(id: number, {signal}: {
+        signal?: AbortSignal
+    }): Promise<RoomDto> {
+        const {data} = await axiosClient.get(`${this.path}/${id}`, {signal});
+        return data
+    }
+
     static async createRoom(room: CreateRoomDto): Promise<RoomDto> {
         const {data} = await axiosClient.post(`${this.path}`, room);
         return data

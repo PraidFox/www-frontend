@@ -18,9 +18,15 @@ export const RoomsPage = () => {
             <Button>Создать комнату</Button>
         </NavLink>
 
-        {/*<Outlet/>*/}
-
-        {rooms.length > 0 ? rooms.map(x => <div key={x.id}>{x.title}</div>) : <div>Нет комнат</div>}
+        <br/><br/><br/>
+        {rooms.length > 0 ? rooms.map(room =>
+            <div key={room.id}>
+                {room.title}
+                <NavLink to={`/rooms/edit/${room.id}`} end>
+                    <Button>Войти в комнату</Button>
+                </NavLink>
+            </div>
+        ) : <div>Нет комнат</div>}
 
     </div>
 }

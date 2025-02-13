@@ -1,11 +1,25 @@
 import {BaseEntity} from "./base.dto.ts";
-import {CreateLocationDto} from "./location.dto.ts";
+import {CreateLocationDto, LocationDTO} from "./location.dto.ts";
+import {DateType} from "../constant/options.constant.ts";
+import {UserDto} from "./user.dto.ts";
 
 export interface RoomDto extends BaseEntity {
-    id: number,
-    title: string
+    author: UserDto
+    dateType: DateType
     description: string
-    //TODO дописать
+    exactDate: Date //Или стринг?
+    id: number,
+    locations: RoomLocations[]
+    members: { id: number, member: UserDto }[]
+    roomStatus: string
+    title: string
+    //whenRoomClose
+    //whenRoomDeleted
+}
+
+export interface RoomLocations extends DetailsForWhere {
+    id: number,
+    location: LocationDTO
 }
 
 export interface CreateRoomDto {
@@ -13,23 +27,21 @@ export interface CreateRoomDto {
     description?: string
     existingLocationsAndDetails?: LocationAndDetailsDto[]
     newLocationsAndDetails?: NewLocationAndDetailsDto[]
+    dateType: DateType
     authorId: number
     membersId: number[]
-    exactDate?: string
+    exactDate?: Date
 }
 
 interface DetailsForWhere {
-    exactDate?: string//Date
+    exactDate?: Date
     description?: string
 }
 
 export interface LocationAndDetailsDto extends DetailsForWhere {
     existingLocationsId: number
-
 }
 
 export interface NewLocationAndDetailsDto extends DetailsForWhere {
     newLocation: CreateLocationDto
-    exactDate?: string
-    description?: string
 }

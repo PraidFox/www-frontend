@@ -12,7 +12,7 @@ import {AboutProject} from "./Pages/Welcome/AboutProject.page.tsx";
 import {RedirectToHomeRoute} from "./UiElements/RedirectToHomeRoute.tsx";
 import {ErrorPage} from "./Pages/Error/Error.page.tsx";
 import {RoomsPage} from "./Pages/Rooms/Rooms.page.tsx";
-import {CreateRoomFrom} from "./Forms/Room/CreateRoom.form.tsx";
+import {EditRoomFrom} from "./Forms/Room/EditRoom.form.tsx";
 
 // const RoomsRoutes = () => {
 //     return (
@@ -23,7 +23,7 @@ import {CreateRoomFrom} from "./Forms/Room/CreateRoom.form.tsx";
 //     );
 // };
 
-
+//TODO пути убрать в storage
 export const AppRoutes = () => {
     return (
         <Routes>
@@ -44,7 +44,8 @@ export const AppRoutes = () => {
 
                 {/*<Route path="rooms/*" element={<RoomsRoutes />} />*/}
                 <Route path={'rooms'} element={<RoomsPage/>}/>
-                <Route path={'rooms/create'} element={<CreateRoomFrom/>}/>
+                <Route path={'rooms/create'} element={<EditRoomFrom/>}/>
+                <Route path={'rooms/edit/:roomId'} element={<EditRoomFrom/>}/>
 
 
                 <Route path="*" element={<ErrorPage/>}/>

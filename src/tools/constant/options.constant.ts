@@ -1,6 +1,10 @@
+export enum DateType {
+    ALL_LOCATIONS_DATE = 'all_locations_date', // Общая дата для всех локаций
+    EACH_LOCATION_DATE = 'each_location_date', // Отдельная дата для каждой локации
+}
+
 export const optionsDateType = [
-    {value: "date_for_every_location", label: "Своя дата для каждой локации"},
-    {value: "date_all_location", label: "Одна дата дляв всех локаций"},
+    {value: DateType.EACH_LOCATION_DATE, label: "Своя дата для каждой локации"},
+    {value: DateType.ALL_LOCATIONS_DATE, label: "Одна дата дляв всех локаций"},
 ]
 
-export type optionsDateTypeType = "date_for_every_location" | "date_all_location"

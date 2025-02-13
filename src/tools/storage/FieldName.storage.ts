@@ -30,14 +30,15 @@ export enum NF_ResetChangePassword {
 export enum NF_CreateRoom {
     nameRoom = 'nameRoom',
     members = 'members',
+    description = 'description',
     dateType = 'dateType',
     dateAllLocation = 'dateAllLocation',
     location_data = 'location_data',
-    location_info = 'location_info',
+    location_description = 'location_description',
     new_location_name = 'new_location_name',
     new_location_address = 'new_location_address',
     new_location_url = 'new_location_url',
     new_location_data = 'new_location_data',
-    new_location_info = 'new_location_info',
+    new_location_description = 'new_location_description',
 }
 

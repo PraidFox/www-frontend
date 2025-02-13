@@ -3,9 +3,10 @@ import {Button, FormInstance} from "antd";
 import {Dispatch, SetStateAction, useRef, useState} from "react";
 import {useGetAllLocations} from "../../../../tools/hooks/queries/Location.queries.ts";
 import {LocationField} from "../Fields/Location.field.tsx";
-import {optionsDateTypeType} from "../../../../tools/constant/options.constant.ts";
+import {DateType} from "../../../../tools/constant/options.constant.ts";
 import {ExistingLocation} from "./ExistingLocation.tsx";
 import {NewLocation} from "./NewLocation.tsx";
+import {RoomLocations} from "../../../../tools/Models/room.dto.ts";
 
 export const MappingLocation = ({
                                     form,
@@ -13,14 +14,16 @@ export const MappingLocation = ({
                                     setSelectedLocations,
                                     selectedLocations,
                                     setNewLocations,
-                                    newLocations
+                                    newLocations,
+                                    defaultValues,
                                 }: {
     form: FormInstance,
-    dateType: optionsDateTypeType,
+    dateType: DateType,
     setSelectedLocations: Dispatch<SetStateAction<{ index: number, location: IOptLocation }[]>>
     selectedLocations: { index: number, location: IOptLocation }[],
     setNewLocations: Dispatch<SetStateAction<{ index: number, location: string }[]>>
     newLocations: { index: number, location: string }[]
+    defaultValues?: RoomLocations[]
 }) => {
     const {data: locations} = useGetAllLocations()
 
@@ -38,6 +41,7 @@ export const MappingLocation = ({
         }
         form.resetFields(['location'])
     }
+
 
     const addNewLocation = () => {
         if (inputLocation) {
@@ -57,6 +61,7 @@ export const MappingLocation = ({
         setSelectedLocations(r => r.filter(x => x.index !== index))
     }
 
+
     return <>
         <LocationField
             options={locations}
@@ -67,20 +72,23 @@ export const MappingLocation = ({
         />
 
         <ul>
-            {selectedLocations?.map((selected: { index: number, location: IOptLocation }) => <li
-                key={selected.location.value + selected.index.toString()}>
-                <Button onClick={() => deleteSelectedLocation(selected.index)}>Удалить</Button>
-                <br/>
-                <ExistingLocation selected={selected} dateType={dateType}/>
-            </li>)}
+            {selectedLocations?.map((selected: { index: number, location: IOptLocation }) =>
+                <li key={selected.location.value + selected.index.toString()}>
+                    <Button onClick={() => deleteSelectedLocation(selected.index)}>Удалить</Button>
+                    <br/>
+                    <ExistingLocation selected={selected} dateType={dateType}
+                                      defaultValues={defaultValues?.find(detail => detail.location.id == selected.location.value)}/>
+                </li>
+            )}
 
 
-            {newLocations?.map((selected: { index: number, location: string }) => <li
-                key={selected.location + selected.index.toString()}>
-                <Button onClick={() => deleteNewLocation(selected.index)}>Удалить</Button>
-                <br/>
-                <NewLocation selected={selected} dateType={dateType}/>
-            </li>)}
+            {newLocations?.map((selected: { index: number, location: string }) =>
+                <li key={selected.location + selected.index.toString()}>
+                    <Button onClick={() => deleteNewLocation(selected.index)}>Удалить</Button>
+                    <br/>
+                    <NewLocation selected={selected} dateType={dateType}/>
+                </li>
+            )}
         </ul>
     </>
 }

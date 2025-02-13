@@ -1,26 +1,39 @@
 import {DatePicker, Form, Input} from "antd";
-import {optionsDateTypeType} from "../../../../tools/constant/options.constant.ts";
+import {DateType} from "../../../../tools/constant/options.constant.ts";
 import {IOptLocation} from "../../../../tools/interfaces/option.interface.ts";
 import {NF_CreateRoom} from "../../../../tools/storage/FieldName.storage.ts";
+import {RoomLocations} from "../../../../tools/Models/room.dto.ts";
+import dayjs from "dayjs";
 
-export const ExistingLocation = ({selected, dateType}: {
+export const ExistingLocation = ({selected, dateType, defaultValues}: {
     selected: { index: number, location: IOptLocation },
-    dateType: optionsDateTypeType
+    dateType: DateType
+    defaultValues?: RoomLocations
 }) => {
+
+    console.log("defaultValues", defaultValues)
+
     return <>
         Наименование: {selected.location.label}
-
         <br/>
         Адресс: {selected.location.info?.address}
         <br/>
         Ссылка: {selected.location.info?.url}
         <br/>
-        {dateType === 'date_for_every_location' &&
-            <Form.Item name={NF_CreateRoom.location_data + selected.index.toString()} label="Когда">
-                <DatePicker showTime format="YYYY-MM-DD HH:mm:ss"/>
+        {dateType === DateType.EACH_LOCATION_DATE &&
+            <Form.Item
+                name={NF_CreateRoom.location_data + selected.index.toString()}
+                label="Когда"
+                initialValue={dayjs(defaultValues?.exactDate)}
+            >
+                <DatePicker showTime/>
             </Form.Item>
         }
-        <Form.Item label="Дополнительная информация" name={NF_CreateRoom.location_info + selected.index.toString()}>
+        <Form.Item
+            label="Дополнительная информация"
+            name={NF_CreateRoom.location_description + selected.index.toString()}
+            initialValue={defaultValues?.description}
+        >
             <Input.TextArea/>
         </Form.Item>
     </>
