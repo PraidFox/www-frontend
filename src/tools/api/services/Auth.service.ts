@@ -17,7 +17,6 @@ export class AuthService {
 
     static async loginUser(auth: AuthDto): Promise<ITokenResponse> {
         const {data} = await axiosClient.post(`${this.path}/login`, auth)
-        console.log("data", data)
         return data
     }
 
@@ -31,7 +30,6 @@ export class AuthService {
             emailOrLogin: emailOrLogin,
             urlVerifyResetPassword: import.meta.env.VITE_APP_BASE_URL + 'resetPassword/'
         }
-        console.log(data)
         return await axiosClient.post(`${this.path}/sendMailResetPassword`, data)
     }
 

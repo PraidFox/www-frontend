@@ -22,7 +22,7 @@ export const RoomsPage = () => {
         {rooms.length > 0 ? rooms.map(room =>
             <div key={room.id}>
                 {room.title}
-                <NavLink to={`/rooms/edit/${room.id}`} end>
+                <NavLink to={`/rooms/room/${room.id}`} end>
                     <Button>Войти в комнату</Button>
                 </NavLink>
             </div>

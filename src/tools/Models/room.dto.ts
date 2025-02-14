@@ -9,7 +9,7 @@ export interface RoomDto extends BaseEntity {
     description: string
     exactDate: Date //Или стринг?
     id: number,
-    locations: RoomLocations[]
+    locations: RoomLocation[]
     members: { id: number, member: UserDto }[]
     roomStatus: string
     title: string
@@ -17,7 +17,7 @@ export interface RoomDto extends BaseEntity {
     //whenRoomDeleted
 }
 
-export interface RoomLocations extends DetailsForWhere {
+export interface RoomLocation extends DetailsForWhere {
     id: number,
     location: LocationDTO
 }

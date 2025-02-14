@@ -6,7 +6,7 @@ import {LocationField} from "../Fields/Location.field.tsx";
 import {DateType} from "../../../../tools/constant/options.constant.ts";
 import {ExistingLocation} from "./ExistingLocation.tsx";
 import {NewLocation} from "./NewLocation.tsx";
-import {RoomLocations} from "../../../../tools/Models/room.dto.ts";
+import {RoomLocation} from "../../../../tools/Models/room.dto.ts";
 
 export const MappingLocation = ({
                                     form,
@@ -23,7 +23,7 @@ export const MappingLocation = ({
     selectedLocations: { index: number, location: IOptLocation }[],
     setNewLocations: Dispatch<SetStateAction<{ index: number, location: string }[]>>
     newLocations: { index: number, location: string }[]
-    defaultValues?: RoomLocations[]
+    defaultValues?: RoomLocation[]
 }) => {
     const {data: locations} = useGetAllLocations()
 

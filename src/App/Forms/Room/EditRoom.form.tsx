@@ -33,7 +33,7 @@ export const EditRoomFrom = () => {
     }[]>([])
     const [newLocations, setNewLocations] = useState<{ index: number, location: string }[]>([])
 
-    const typeDateValue: DateType = Form.useWatch(NF_CreateRoom, form);
+    const typeDateValue: DateType = Form.useWatch(NF_CreateRoom.dateType, form);
 
     useLayoutEffect(() => {
         if (room && room.locations) {
@@ -73,6 +73,8 @@ export const EditRoomFrom = () => {
             await createRoom.mutateAsync(newRoom)
         }
     }
+
+    console.log("typeDateValue", typeDateValue)
 
     return <Form
         name={'FormCreateRoom'}

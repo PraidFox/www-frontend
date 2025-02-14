@@ -13,6 +13,7 @@ import {RedirectToHomeRoute} from "./UiElements/RedirectToHomeRoute.tsx";
 import {ErrorPage} from "./Pages/Error/Error.page.tsx";
 import {RoomsPage} from "./Pages/Rooms/Rooms.page.tsx";
 import {EditRoomFrom} from "./Forms/Room/EditRoom.form.tsx";
+import {RoomView} from "./Pages/Rooms/Room/RoomView.tsx";
 
 // const RoomsRoutes = () => {
 //     return (
@@ -46,6 +47,7 @@ export const AppRoutes = () => {
                 <Route path={'rooms'} element={<RoomsPage/>}/>
                 <Route path={'rooms/create'} element={<EditRoomFrom/>}/>
                 <Route path={'rooms/edit/:roomId'} element={<EditRoomFrom/>}/>
+                <Route path={'rooms/room/:roomId'} element={<RoomView/>}/>
 
 
                 <Route path="*" element={<ErrorPage/>}/>

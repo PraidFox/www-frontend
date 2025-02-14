@@ -2,16 +2,15 @@ import {DatePicker, Form, Input} from "antd";
 import {DateType} from "../../../../tools/constant/options.constant.ts";
 import {IOptLocation} from "../../../../tools/interfaces/option.interface.ts";
 import {NF_CreateRoom} from "../../../../tools/storage/FieldName.storage.ts";
-import {RoomLocations} from "../../../../tools/Models/room.dto.ts";
+import {RoomLocation} from "../../../../tools/Models/room.dto.ts";
 import dayjs from "dayjs";
 
 export const ExistingLocation = ({selected, dateType, defaultValues}: {
     selected: { index: number, location: IOptLocation },
     dateType: DateType
-    defaultValues?: RoomLocations
+    defaultValues?: RoomLocation
 }) => {
 
-    console.log("defaultValues", defaultValues)
 
     return <>
         Наименование: {selected.location.label}

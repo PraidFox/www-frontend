@@ -7,7 +7,7 @@ export const ProfilePage = () => {
     const {userName} = useParams();
     const {data: userInfo, isLoading} = useUser(userName)
     const {data: session} = useGetMySession()
-    console.log("session", session)
+
 
     if (isLoading) return (<div>Loading...</div>)
     if (!userInfo || !session) return (<div>Пользователь не найден</div>)
