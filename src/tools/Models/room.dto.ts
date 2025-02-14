@@ -33,7 +33,13 @@ export interface CreateRoomDto {
     exactDate?: Date
 }
 
+export interface UpdateRoomDto extends CreateRoomDto {
+    id: number
+    members: { linkId: number, memberId: number }[]
+}
+
 interface DetailsForWhere {
+    linkId: number
     exactDate?: Date
     description?: string
 }
@@ -42,6 +48,6 @@ export interface LocationAndDetailsDto extends DetailsForWhere {
     existingLocationsId: number
 }
 
-export interface NewLocationAndDetailsDto extends DetailsForWhere {
+export interface NewLocationAndDetailsDto extends Omit<DetailsForWhere, 'linkId'> {
     newLocation: CreateLocationDto
 }

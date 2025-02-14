@@ -7,7 +7,7 @@ import {DateType} from "../../../tools/constant/options.constant.ts";
 
 export const convertDataToPost = (
     values: IFieldsForForms,
-    selectedLocations: { index: number, location: IOptLocation }[],
+    selectedLocations: { index: number, linkId: number, location: IOptLocation }[],
     newLocations: { index: number, location: string }[],
     infoUser: UserDto,
     typeDateValue: DateType
@@ -30,6 +30,7 @@ export const convertDataToPost = (
 
         selectedLocations.forEach(selected => {
             const locationAndDetails: LocationAndDetailsDto = {
+                linkId: selected.linkId,
                 existingLocationsId: Number(selected.location.value),
                 description: values[`${NF_CreateRoom.location_description}${selected.index}`],
             }

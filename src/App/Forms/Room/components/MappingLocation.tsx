@@ -19,7 +19,7 @@ export const MappingLocation = ({
                                 }: {
     form: FormInstance,
     dateType: DateType,
-    setSelectedLocations: Dispatch<SetStateAction<{ index: number, location: IOptLocation }[]>>
+    setSelectedLocations: Dispatch<SetStateAction<{ index: number, linkId: number, location: IOptLocation }[]>>
     selectedLocations: { index: number, location: IOptLocation }[],
     setNewLocations: Dispatch<SetStateAction<{ index: number, location: string }[]>>
     newLocations: { index: number, location: string }[]
@@ -34,6 +34,7 @@ export const MappingLocation = ({
     const changeLocations = (value: IOptLocation | IOptLocation[] | undefined) => {
         if (value && !Array.isArray(value)) {
             setSelectedLocations(r => [...r, {
+                linkId: 0,
                 index: indexLocations.current,
                 location: value
             }])

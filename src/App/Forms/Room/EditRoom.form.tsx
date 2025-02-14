@@ -9,7 +9,7 @@ import {useLayoutEffect, useState} from "react";
 import {IOptLocation} from "../../../tools/interfaces/option.interface.ts";
 import {NF_CreateRoom} from "../../../tools/storage/FieldName.storage.ts";
 import {IFieldsForForms} from "../../../tools/interfaces/fieldsForForms.interface.ts";
-import {useCreateRoom, useGetRoom} from "../../../tools/hooks/queries/Rooms.queries.ts";
+import {useCreateRoom, useGetRoom, useUpdateRoom} from "../../../tools/hooks/queries/Rooms.queries.ts";
 import {useGetMe} from "../../../tools/hooks/queries/User.queries.ts";
 import {convertDataToPost} from "./EditRoom.helper.ts";
 import {useParams} from "react-router";
@@ -18,20 +18,29 @@ import dayjs from 'dayjs';
 
 export const EditRoomFrom = () => {
     const {roomId} = useParams();
+
     const {data: infoUser} = useGetMe()
     const {data: room, isFetching: isFetchingRoom} = useGetRoom(Number(roomId))
     const createRoom = useCreateRoom()
+    const updateRoom = useUpdateRoom()
+
     const [form] = useForm()
-    const [selectedLocations, setSelectedLocations] = useState<{ index: number, location: IOptLocation }[]>([])
+
+    const [selectedLocations, setSelectedLocations] = useState<{
+        index: number,
+        linkId: number,
+        location: IOptLocation
+    }[]>([])
     const [newLocations, setNewLocations] = useState<{ index: number, location: string }[]>([])
 
-    const typeDateValue: DateType = Form.useWatch('dateType', form);
+    const typeDateValue: DateType = Form.useWatch(NF_CreateRoom, form);
 
     useLayoutEffect(() => {
         if (room && room.locations) {
             //TODO а так ли локации помещать в стейт? Или... подумать
             setSelectedLocations(room.locations.map((location, index) => ({
                 index,
+                linkId: location.id,
                 location: {
                     value: location.location.id,
                     label: location.location.name,
@@ -51,10 +60,19 @@ export const EditRoomFrom = () => {
 
     const save = async (values: IFieldsForForms) => {
         const newRoom = convertDataToPost(values, selectedLocations, newLocations, infoUser, typeDateValue)
-        await createRoom.mutateAsync(newRoom)
+        if (room) {
+            const membersAndLink: {
+                linkId: number,
+                memberId: number
+            }[] = newRoom.membersId.map(memberId => ({
+                memberId: memberId,
+                linkId: room.members.find(member => member.member.id === memberId) ? room.members.find(member => member.member.id === memberId)!.id : 0
+            }))
+            await updateRoom.mutateAsync({...newRoom, members: membersAndLink, id: room.id})
+        } else {
+            await createRoom.mutateAsync(newRoom)
+        }
     }
-
-    console.log()
 
     return <Form
         name={'FormCreateRoom'}

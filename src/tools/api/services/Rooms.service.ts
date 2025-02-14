@@ -1,5 +1,5 @@
 import {axiosClient} from "../axios.config.ts";
-import {CreateRoomDto, RoomDto} from "../../Models/room.dto.ts";
+import {CreateRoomDto, RoomDto, UpdateRoomDto} from "../../Models/room.dto.ts";
 
 export class RoomsService {
     private static path = '/rooms';
@@ -20,6 +20,11 @@ export class RoomsService {
 
     static async createRoom(room: CreateRoomDto): Promise<RoomDto> {
         const {data} = await axiosClient.post(`${this.path}`, room);
+        return data
+    }
+
+    static async updateRoom(room: UpdateRoomDto): Promise<RoomDto> {
+        const {data} = await axiosClient.patch(`${this.path}`, room);
         return data
     }
 }
