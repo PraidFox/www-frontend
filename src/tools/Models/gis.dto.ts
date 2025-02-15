@@ -15,11 +15,18 @@ export interface LocationGisDto {
     address_name: string
     id: number
     name: string
-    rubric: string[]
+    rubrics: Rubric[]
     type: string
 }
 
 export interface SearchLocationGisDto {
     cityId: number
     query: string
+}
+
+export interface Rubric {
+    alias: string
+    id: number
+    kind: string
+    name: string
 }
