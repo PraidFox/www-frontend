@@ -12,12 +12,13 @@ import {IFieldsForForms} from "../../../tools/interfaces/fieldsForForms.interfac
 import {useCreateRoom, useGetRoom, useUpdateRoom} from "../../../tools/hooks/queries/Rooms.queries.ts";
 import {useGetMe} from "../../../tools/hooks/queries/User.queries.ts";
 import {convertDataToPost} from "./EditRoom.helper.ts";
-import {useParams} from "react-router";
+import {NavLink, useNavigate, useParams} from "react-router";
 import {DescriptionField} from "./Fields/Description.field.tsx";
 import dayjs from 'dayjs';
 
 export const EditRoomFrom = () => {
     const {roomId} = useParams();
+    const navigate = useNavigate();
 
     const {data: infoUser} = useGetMe()
     const {data: room, isFetching: isFetchingRoom} = useGetRoom(Number(roomId))
@@ -72,9 +73,14 @@ export const EditRoomFrom = () => {
         } else {
             await createRoom.mutateAsync(newRoom)
         }
+
+        if (room) {
+            navigate(`/rooms/room/${room.id}`);
+        } else {
+            navigate('/rooms');
+        }
     }
 
-    console.log("typeDateValue", typeDateValue)
 
     return <Form
         name={'FormCreateRoom'}
@@ -111,7 +117,16 @@ export const EditRoomFrom = () => {
 
 
         <Button type="primary" htmlType="submit">
-            {room?.title ? "Обновить" : "Создать"}
+            {room ? "Обновить" : "Создать"}
         </Button>
+
+        {room ? <NavLink to={`/rooms/room/${room.id}`} end>
+                <Button>Отмена</Button>
+            </NavLink> :
+            <NavLink to={`/rooms`} end>
+                <Button>Отмена</Button>
+            </NavLink>}
+
+
     </Form>
 }

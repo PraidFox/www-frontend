@@ -8,3 +8,9 @@ export const optionsDateType = [
     {value: DateType.ALL_LOCATIONS_DATE, label: "Одна дата дляв всех локаций"},
 ]
 
+export enum RoomLocationUserReaction {
+    SUCCESS = 'success', //участвует
+    FAIL = 'fail', //не участвует
+    THIS = 'this', //думает
+    NOT_REACTION = 'not_reaction', //еще не проставил
+}

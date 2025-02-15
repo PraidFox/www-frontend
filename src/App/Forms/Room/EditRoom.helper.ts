@@ -21,6 +21,10 @@ export const convertDataToPost = (
         dateType: values[NF_CreateRoom.dateType],
     }
 
+    if (!newRoom.membersId.find(memberId => memberId === infoUser.id)) {
+        newRoom.membersId = [...newRoom.membersId, infoUser.id]
+    }
+
     if (typeDateValue === DateType.ALL_LOCATIONS_DATE) {
         newRoom.exactDate = values[NF_CreateRoom.dateAllLocation]?.toDate()
     }
