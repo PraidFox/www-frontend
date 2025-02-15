@@ -16,6 +16,13 @@ export const axiosClient: AxiosInstance = (() => {
     });
 })();
 
+export const axios2Gis: AxiosInstance = (() => {
+    return axios.create({
+        baseURL: import.meta.env.VITE_APP_API_2GIS,
+
+    });
+})();
+
 
 axiosClient.interceptors.request.use(
     (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
