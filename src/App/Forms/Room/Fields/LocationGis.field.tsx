@@ -11,9 +11,6 @@ export const LocationGisField = () => {
         query: valueField
     } : undefined)
 
-
-    console.log("DATA", data)
-
     return <Form.Item
         label="Куда 2Gis"
         name="location"

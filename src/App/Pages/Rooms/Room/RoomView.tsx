@@ -27,6 +27,7 @@ export const RoomView = () => {
         return userRoomReactions.filter(userReaction => userReaction.reaction == RoomLocationUserReaction.NOT_REACTION).map(userReaction => userReaction.user)
     }
 
+    console.log("room", room)
 
     return (
         <>
@@ -50,7 +51,7 @@ export const RoomView = () => {
             {room.dateType === DateType.ALL_LOCATIONS_DATE && <p>Когда: {room.exactDate.toString()}</p>}
 
             Еще не
-            проголосовали: {getUsersNotReactions(room.userReactions).map(user => user.login).join(', ') || 'Все молодцы, все проголосовали!'}
+            проголосовали: {[...new Set(getUsersNotReactions(room.userReactions).map(user => user.login))].join(', ') || 'Все молодцы, все проголосовали!'}
 
             {room.comments.map(commentDto =>
                 <Comment

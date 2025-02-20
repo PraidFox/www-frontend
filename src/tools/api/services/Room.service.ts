@@ -9,7 +9,7 @@ import {
     UpdateRoomDto
 } from "../../Models/room.dto.ts";
 
-export class RoomsService {
+export class RoomService {
     private static path = '/rooms';
 
     static async getMyRoomsIsAuthor(userId: number, {signal}: {
@@ -41,6 +41,10 @@ export class RoomsService {
     static async updateRoom(room: UpdateRoomDto): Promise<RoomDto> {
         const {data} = await axiosClient.patch(`${this.path}`, room);
         return data
+    }
+    
+    static async deleteRoom(id: number) {
+        await axiosClient.delete(`${this.path}/${id}`)
     }
 
     static async updateReaction(reaction: UpdateReactionDto) {

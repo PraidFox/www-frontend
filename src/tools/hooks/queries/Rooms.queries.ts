@@ -1,5 +1,5 @@
 import {skipToken, useMutation, useQuery} from "@tanstack/react-query";
-import {RoomsService} from "../../api/services/Rooms.service.ts";
+import {RoomService} from "../../api/services/Room.service.ts";
 import {
     CreateCommentDto,
     CreateRoomDto,
@@ -15,7 +15,7 @@ export const useGetMyRoomsAuthor = (userId: number | undefined) => {
     return useQuery({
         queryKey: ['myRooms'],
         queryFn: userId ? async (meta) => {
-            return await RoomsService.getMyRoomsIsAuthor(userId, meta)
+            return await RoomService.getMyRoomsIsAuthor(userId, meta)
         } : skipToken
     })
 }
@@ -24,7 +24,7 @@ export const useGetRoom = (id: number | undefined) => {
     return useQuery({
         queryKey: ['getRoom', `roomId_${id}`],
         queryFn: id ? async (meta): Promise<RoomDto> => {
-            return await RoomsService.getRoom(id, meta)
+            return await RoomService.getRoom(id, meta)
         } : skipToken
     })
 }
@@ -33,7 +33,7 @@ export const useGetRoomFull = (id: number | undefined) => {
     return useQuery({
         queryKey: ['getRoomFull', `roomId_${id}`],
         queryFn: id ? async (meta): Promise<RoomFullDto> => {
-            return await RoomsService.getRoomFull(id, meta)
+            return await RoomService.getRoomFull(id, meta)
         } : skipToken
     })
 }
@@ -41,7 +41,7 @@ export const useGetRoomFull = (id: number | undefined) => {
 export const useCreateRoom = () => {
     return useMutation({
         mutationFn: async (room: CreateRoomDto) => {
-            await RoomsService.createRoom(room)
+            await RoomService.createRoom(room)
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: ['myRooms']});
@@ -52,7 +52,7 @@ export const useCreateRoom = () => {
 export const useUpdateRoom = () => {
     return useMutation({
         mutationFn: async (room: UpdateRoomDto) => {
-            await RoomsService.updateRoom(room)
+            await RoomService.updateRoom(room)
         },
         onSuccess: async (_, variables) => {
             await queryClient.invalidateQueries({queryKey: ['getRoomFull', `roomId_${variables.id}`]});
@@ -61,10 +61,21 @@ export const useUpdateRoom = () => {
     })
 }
 
+export const useDeleteRoom = () => {
+    return useMutation({
+        mutationFn: async (id: number) => {
+            await RoomService.deleteRoom(id)
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({queryKey: ['myRooms']});
+        }
+    })
+}
+
 export const useUpdateReaction = () => {
     return useMutation({
         mutationFn: async (reaction: UpdateReactionDto) => {
-            await RoomsService.updateReaction(reaction)
+            await RoomService.updateReaction(reaction)
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [`getRoomFull`]}); //Оставить так или всё таки прокидывать комнату?
@@ -75,7 +86,7 @@ export const useUpdateReaction = () => {
 export const useCreateComment = () => {
     return useMutation({
         mutationFn: async (commentDto: CreateCommentDto) => {
-            await RoomsService.createComment(commentDto)
+            await RoomService.createComment(commentDto)
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [`getRoomFull`]});
@@ -86,7 +97,7 @@ export const useCreateComment = () => {
 export const useUpdateComment = () => {
     return useMutation({
         mutationFn: async (commentDto: UpdateCommentDto) => {
-            await RoomsService.updateComment(commentDto)
+            await RoomService.updateComment(commentDto)
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [`getRoomFull`]});
